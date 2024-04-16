@@ -1,10 +1,10 @@
 package com.devatlant.training.conference.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+
+import java.util.Set;
 
 /**
  * @author yevgen voronetski
@@ -15,7 +15,6 @@ import java.time.LocalDate;
 @ToString
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
-@Data
 public class Conference {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
@@ -26,5 +25,13 @@ public class Conference {
     private final LocalDate startDate;
     private final LocalDate endDate;
     private final int participantsCount;
+    @OneToMany
+    private final Set<Talk> talks;
 
+    public void addTalk(Talk talk) {
+        if (this.talks == null) {
+            throw new RuntimeException("Talks are not initialized");
+        }
+        talks.add(talk);
+    }
 }

@@ -7,3 +7,5 @@ services:
         ports:
             - 15432:5432
         command: ["postgres", "-c", "listen_addresses=*"]
+        volumes:
+            - /Users/admin/github/xpinjectction-springboot/docker/postgres-data:/var/lib/postgresql/data
